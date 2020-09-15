@@ -29,7 +29,7 @@ namespace BankingDomain
                         break;
                     }
             }
-            _balance += amountToDeposit;
+           
         }
 
         public void Withdraw(decimal amountToWithdraw)
