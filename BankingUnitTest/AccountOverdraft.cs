@@ -33,8 +33,6 @@ namespace BankingUnitTest
             var account = new BankAccount();
             var openingBalance = account.GetBalance();
 
-            account.Withdraw(openingBalance + 1M);
-            bool caught = false;
 
             Assert.Throws<OverdraftException>(() => account.Withdraw(openingBalance + 1M));
         }
