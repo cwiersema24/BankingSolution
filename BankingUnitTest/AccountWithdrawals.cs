@@ -1,4 +1,5 @@
 ﻿using BankingDomain;
+using BankingUnitTest.TestDoubles;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +12,7 @@ namespace BankingUnitTest
         [Fact]
         public void WithdrawlDecreaseBalance()
         {
-            var account = new BankAccount();
+            var account = new BankAccount(new DummyBonusCalculator());
             var openingBlanace = account.GetBalance();
             var amountToWithdraw = 1M;
 
@@ -22,7 +23,7 @@ namespace BankingUnitTest
         [Fact]
         public void CanTakeAllYourMoney()
         {
-            var account = new BankAccount();
+            var account = new BankAccount(new DummyBonusCalculator());
             account.Withdraw(account.GetBalance());
             Assert.Equal(0, account.GetBalance());
         }

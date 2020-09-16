@@ -7,6 +7,13 @@ namespace BankingDomain
     public class BankAccount
     {
         private decimal _balance = 1000M;
+        private ICalculateBankAccountBonuses _bonusCalculator;
+
+        public BankAccount(ICalculateBankAccountBonuses bonusCalculator)
+        {
+            _bonusCalculator = bonusCalculator;
+        }
+
         public decimal GetBalance()
         {
             return _balance;
@@ -14,7 +21,8 @@ namespace BankingDomain
 
         public void Deposit(decimal amountToDeposit)
         {
-            _balance += amountToDeposit;
+            decimal bonus = _bonusCalculator.GetDepositBonusFor(_balance, amountToDeposit);
+            _balance += amountToDeposit+ bonus;
         }
 
         public void Withdraw(decimal amountToWithdraw)

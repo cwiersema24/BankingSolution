@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using BankingDomain;
+using BankingUnitTest.TestDoubles;
+using Moq;
 
 namespace BankingUnitTest
 {
@@ -12,7 +14,7 @@ namespace BankingUnitTest
         public void NewAccountsHaveCorrectBalance()
         {
             //Given
-            var account = new BankAccount();
+            var account = new BankAccount(new Mock<ICalculateBankAccountBonuses>().Object);
 
             //When
             decimal balance = account.GetBalance();
