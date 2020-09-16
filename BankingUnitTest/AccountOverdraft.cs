@@ -1,5 +1,6 @@
 ﻿using BankingDomain;
 using BankingUnitTest.TestDoubles;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,7 @@ namespace BankingUnitTest
         [Fact]
         public void BalanceStaysTheSame()
         {
-            var account = new BankAccount(new DummyBonusCalculator());
+            var account = new BankAccount(new DummyBonusCalculator(), new Mock<INotifyTheFeds>().Object);
             var openingBalance = account.GetBalance();
 
             try
@@ -31,7 +32,7 @@ namespace BankingUnitTest
         [Fact]
         public void OverdraftGivesException()
         {
-            var account = new BankAccount(new DummyBonusCalculator());
+            var account = new BankAccount(new DummyBonusCalculator(), new Mock<INotifyTheFeds>().Object);
             var openingBalance = account.GetBalance();
 
 
