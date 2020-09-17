@@ -1,3 +1,5 @@
+using BankingDomain;
+using SimpleInjector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +19,20 @@ namespace BankKiosk
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(Bootstrap().GetInstance<Form1>());
+        }
+
+        public static Container Bootstrap()
+        {
+            var container = new Container();
+            container.Options.EnableAutoVerification = false;
+            container.Register<ISystemTime, SystemTime>();
+            container.Register<ICalculateBankAccountBonuses, StandardBonusCalculator>();
+            container.Register<IProvideTheCutoffClock, StandardCutoffClock>();
+            container.Register<INotifyTheFeds, WindowsFormsFedNotifyer>();
+            container.Register<BankAccount>();
+            container.Register<Form1>();
+            return container;
         }
     }
 }

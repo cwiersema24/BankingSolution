@@ -11,15 +11,13 @@ using System.Windows.Forms;
 
 namespace BankKiosk
 {
-    public partial class Form1 : Form, INotifyTheFeds
+    public partial class Form1 : Form
     {
         BankAccount _account;
-        public Form1()
+        public Form1(BankAccount account)
         {
             InitializeComponent();
-            _account = new BankAccount(
-                 new StandardBonusCalculator(
-                     new StandardCutoffClock(new SystemTime())), this);
+            _account = account;
             UpdateUi();
         }
 
